@@ -92,20 +92,6 @@ try:
 
         time.sleep(60)
 
-    # Partial local time update
-    # draw.rectangle((left_padding, local_time_start, time_width, time_height), fill=255)
-    # draw.text((left_padding, local_time_start), local_time(), font=font, fill=0)
-    # next_image = img.crop([left_padding, local_time_start, time_width, time_height])
-    # img.paste(next_image, (left_padding, local_time_start))
-    # epd.display_Partial(epd.getbuffer(img), left_padding, local_time_start, time_width, time_height)
-    #
-    # # Partial UTC time update
-    # draw.rectangle((left_padding, utc_time_start, time_width, time_height), fill=255)
-    # draw.text((left_padding, utc_time_start), utc_time(), font=font, fill=0)
-    # next_image = img.crop([left_padding, utc_time_start, time_width, time_height])
-    # img.paste(next_image, (left_padding, utc_time_start))
-    # epd.display_Partial(epd.getbuffer(img), left_padding, utc_time_start, time_width, time_height)
-
 except IOError as e:
     logging.error(e)
     raise e
