@@ -25,3 +25,9 @@ wget  https://www.waveshare.com/w/upload/3/39/E-Paper_code.7z
 cd e-Paper/RaspberryPi_JetsonNano/c || exit 3
 sudo make clean
 sudo make -j4 EPD=epd1in02d
+cd - || exit 4
+
+git clone git@github.com:tommyschnabel/rpi-utc-clock.git
+cd rpi-utc-clock || exit 5
+chmod +x install.sh
+./install.sh

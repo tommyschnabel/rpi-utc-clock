@@ -6,10 +6,9 @@ from datetime import datetime, timezone
 import epaper
 from PIL import Image, ImageDraw, ImageFont
 
-module = 'epd2in7_V2'
+module = 'epd2in7_V2'  # Change this to match the screen you have
 screen_height_pixels = 176
 screen_width_pixels = 264
-# TODO Swap height/width when vertical orientation applied
 
 screen = epaper.epaper(module)
 font_file = '/home/pi/Roboto-Medium.ttf'
@@ -29,9 +28,6 @@ def utc_time():
 try:
     logging.info(f"{module} - clock.py")
     epd = screen.EPD()
-
-    # TODO Vertical orientation will allow for bigger fonts
-    # epd.set_rotate(screen.ROTATE_270)
 
     # Layout positions and sizes, based on font sizes above
     left_padding = 10
@@ -64,8 +60,8 @@ try:
     if unused_pixels > 20:
         logging.warning(f'There are {unused_pixels} unused vertical pixels. You can adjust your fonts bigger')
 
+    # Init
     epd.init()
-
     font = ImageFont.truetype(font_file, time_font_size)
     label_font = ImageFont.truetype(font_file, label_font_size)
 
