@@ -2,6 +2,7 @@
 
 A simple Local (24-hour) and UTC datetime clock, because I can never tell what UTC time means when I'm reading logs.
 
+![utc-clock](./images/utc-clock.jpg)
 Runs on a Raspberry Pi with a Waveshare e-ink screen.
 
 ## Picking out your screen ##
