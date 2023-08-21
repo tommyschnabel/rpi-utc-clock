@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sudo mkdir /etc/rpi-utc-clock
+sudo mkdir -p /etc/rpi-utc-clock
 sudo cp ./clock.py /etc/rpi-utc-clock
 sudo cp ./Roboto-Medium.ttf /etc/rpi-utc-clock
 

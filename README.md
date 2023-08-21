@@ -1,12 +1,8 @@
 # README #
 
-This README would normally document whatever steps are necessary to get your application up and running.
+A simple Local (24-hour) and UTC datetime clock, because I can never tell what UTC time means when I'm reading logs.
 
-### What is this repository for? ###
-
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+Runs on a Raspberry Pi with a Waveshare e-ink screen.
 
 ## Picking out your screen ##
 I recommend getting a Waveshare e-paper HAT that screws right into your Pi, otherwise you'll have to use the guide for your screen to plug individual connectors into GPIO pins.
@@ -27,11 +23,5 @@ Connect the screen to your raspberry pi as instructed.
 1. Fill out `conf/wpa_supplicant.conf` with your Wi-Fi credentials
 1. Copy the files in `./conf/` onto your SD card in its root
 1. Insert your SD card into your pi and start it up (it might take a couple minutes before your Pi connects to Wi-Fi)
-1. `scp` the setup.sh file to your Pi, and run it.
+1. `scp` the setup.sh file to your Pi, and run it. This installs all dependencies and sets up the clock as a service via systemctl (`utc-clock.service`).
    1. If you run into trouble, you can follow [this guide](https://www.waveshare.com/wiki/Template:Raspberry_Pi_Guides_for_SPI_e-Paper) for manual setup.
-1. `scp` the install 
-
-### RaspberryPi Setup ###
-1. 
-
-### Install the clock ###
