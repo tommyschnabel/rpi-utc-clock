@@ -78,15 +78,14 @@ try:
     label_font = ImageFont.truetype(font_file, label_font_size)
     date_font = ImageFont.truetype(font_file, date_font_size)
 
-    # Clear screen
-    img = Image.new('1', (epd.height, epd.width), 255)  # 255: clear the frame
-    draw = ImageDraw.Draw(img)
-
-    first = True
     while True:
         local = local_time()
         utc = utc_time()
         logging.info(f'Setting time to: local={local}, utc={utc}')
+
+        # Clear screen
+        img = Image.new('1', (epd.height, epd.width), 255)  # 255: clear the frame
+        draw = ImageDraw.Draw(img)
 
         # Draw labels
         draw.text((left_padding, 0), 'Local Time', font=label_font, fill=0)

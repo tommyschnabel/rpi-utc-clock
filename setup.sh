@@ -27,7 +27,7 @@ sudo make clean
 sudo make -j4 EPD=epd1in02d
 cd - || exit 4
 
-git clone git@github.com:tommyschnabel/rpi-utc-clock.git
+git clone https://github.com/tommyschnabel/rpi-utc-clock.git
 cd rpi-utc-clock || exit 5
 chmod +x install.sh
-./install.sh
+sudo ./install.sh
