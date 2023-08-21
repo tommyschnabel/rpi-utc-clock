@@ -1,5 +1,5 @@
 [Unit]
-Description=UTC e-ink Clock Service
+Description=UTC Clock Service
 After=network.target
 
 [Service]
