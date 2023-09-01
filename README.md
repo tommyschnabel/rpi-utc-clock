@@ -5,6 +5,10 @@ A simple Local (24-hour) and UTC datetime clock, because I can never tell what U
 ![utc-clock](./images/utc-clock.jpg)
 Runs on a Raspberry Pi with a Waveshare e-ink screen.
 
+
+![utc-clock](./images/utc-clock-vertical.jpg)
+Vertical layout for three clock view.
+
 ## Picking out your screen ##
 I recommend getting a Waveshare e-paper HAT that screws right into your Pi, otherwise you'll have to use the guide for your screen to plug individual connectors into GPIO pins.
 

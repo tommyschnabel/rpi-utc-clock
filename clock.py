@@ -14,6 +14,7 @@ screen_width_pixels = 264
 screen = epaper.epaper(module)
 font_file = '/home/pi/Roboto-Medium.ttf'
 logging.basicConfig(level=logging.INFO)  # Note: DEBUG shows screen logs
+rotate = False
 
 # Default timezones
 local_timezone = datetime.now().astimezone().tzinfo
@@ -41,12 +42,22 @@ if alt_timezone is None:
     date_font_size = 16
     time_width = screen_width_pixels * 0.6
     left_padding = 10
+    date_top_padding = 0
+    label_padding = 10
 else:
-    time_font_size = 40
-    label_font_size = 12
+    # Rotate and switch screen height/width
+    rotate = True
+    width_temp = screen_width_pixels
+    screen_width_pixels = screen_height_pixels
+    screen_height_pixels = width_temp
+
+    time_font_size = 55
+    label_font_size = 18
     date_font_size = 12
     time_width = screen_width_pixels * 0.5
-    left_padding = 35
+    left_padding = 5
+    date_top_padding = 10
+    label_padding = 15
 
 
 def local_time():
@@ -86,18 +97,18 @@ try:
     local_time_end = local_time_start + time_font_size
     time_height = time_font_size
     label_height = label_font_size
-    utc_label_start = local_time_end + 10
+    utc_label_start = local_time_end + label_padding
     utc_label_end = utc_label_start + label_font_size
     utc_time_start = utc_label_end
     utc_time_end = utc_time_start + time_font_size
     date_start_x = time_width + 30
-    local_date_start_y = local_time_start + time_font_size - date_font_size
-    utc_date_start_y = utc_time_start + time_font_size - date_font_size
-    alt_label_start = utc_time_start + time_height + 10
+    local_date_start_y = local_time_start + time_font_size - date_font_size + date_top_padding
+    utc_date_start_y = utc_time_start + time_font_size - date_font_size + date_top_padding
+    alt_label_start = utc_time_start + time_height + label_padding
     alt_label_end = alt_label_start + label_font_size
     alt_time_start = alt_label_end
     alt_time_end = alt_time_start + time_font_size
-    atl_date_start_y = alt_time_start + time_font_size - date_font_size
+    atl_date_start_y = alt_time_start + time_font_size - date_font_size + date_top_padding
 
     params = {
         'screen_width_pixels': screen_width_pixels,
@@ -116,6 +127,8 @@ try:
 
     # Warn on too many unused pixels
     unused_pixels = screen_height_pixels - utc_time_end
+    if alt_timezone is not None:
+        unused_pixels = screen_height_pixels - alt_time_end
     if unused_pixels > 20:
         logging.warning(f'There are {unused_pixels} unused vertical pixels. You can adjust your fonts bigger')
 
@@ -135,7 +148,12 @@ try:
         logging.info(f'Setting time to: local={local}, utc={utc}{alt_log}')
 
         # Clear screen
-        img = Image.new('1', (epd.height, epd.width), 255)  # 255: clear the frame
+        width = epd.width
+        height = epd.height
+        if rotate:
+            width = epd.height
+            height = epd.width
+        img = Image.new('1', (height, width), 255)  # 255: clear the frame
         draw = ImageDraw.Draw(img)
 
         # Draw labels
@@ -155,6 +173,10 @@ try:
             draw.text((left_padding, alt_label_start), f'{alt_timezone} Time', font=label_font, fill=0)
             draw.text((left_padding, alt_time_start), alt, font=font, fill=0)
             draw.text((date_start_x, atl_date_start_y), alt_date(), font=date_font, fill=0)
+
+        # Vertical layout for 3-clock setup
+        if rotate:
+            img = img.rotate(180)
 
         # Update screen
         epd.display_Base(epd.getbuffer(img))
