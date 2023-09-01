@@ -1,5 +1,28 @@
 #!/bin/bash
 
+# Parse args
+while [[ $# -gt 0 ]]; do
+    key="$1"
+
+    case $key in
+        -h|--help)
+        echo "Usage:"
+        echo "$0 --local US/Eastern --alt US/Pacific"
+        exit 0
+        ;;
+        --local)
+        LOCAL=$2
+        shift # Shift past argument
+        shift # Shift past value
+        ;;
+        --alt)
+        ALT="$2"
+        shift # Shift past argument
+        shift # Shift past value
+        ;;
+    esac
+done
+
 wget http://www.airspayce.com/mikem/bcm2835/bcm2835-1.71.tar.gz
 tar zxvf bcm2835-1.71.tar.gz
 cd bcm2835-1.71/ || exit 1
@@ -17,7 +40,7 @@ gpio -v
 cd ..
 
 # Install python packages
-sudo pip3 install RPi.GPIO spidev waveshare-epaper
+sudo pip3 install RPi.GPIO spidev waveshare-epaper pytz
 
 # Install waveshare e-paper modules
 wget  https://www.waveshare.com/w/upload/3/39/E-Paper_code.7z
@@ -30,4 +53,4 @@ cd - || exit 4
 git clone https://github.com/tommyschnabel/rpi-utc-clock.git
 cd rpi-utc-clock || exit 5
 chmod +x install.sh
-sudo ./install.sh
+sudo ./install.sh "$LOCAL" "$ALT"

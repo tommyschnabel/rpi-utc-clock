@@ -23,6 +23,7 @@ Connect the screen to your raspberry pi as instructed.
 1. Mount your SD card again. In config.txt uncomment `dtparam=spi=on`
 1. Fill out `conf/wpa_supplicant.conf` with your Wi-Fi credentials
 1. Copy the files in `./conf/` onto your SD card in its root
-1. Insert your SD card into your pi and start it up (it might take a couple minutes before your Pi connects to Wi-Fi)
-1. `scp` the setup.sh file to your Pi, and run it. This installs all dependencies and sets up the clock as a service via systemctl (`utc-clock.service`).
-   1. If you run into trouble, you can follow [this guide](https://www.waveshare.com/wiki/Template:Raspberry_Pi_Guides_for_SPI_e-Paper) for manual setup.
+1. Insert your SD card into your pi and start it up (it might take a couple of minutes before your Pi connects to Wi-Fi)
+1. `scp` the setup.sh file to your Pi, and run it. If you want to set the local timezone or a third alternate timezone, use the following flags (both optional):
+   1. `./setup.sh  --local US/Eastern --alt US/Pacific # Both flags optional`
+   1. `setup.sh` installs all dependencies and sets up the clock as a service via systemctl (`utc-clock.service`).
